@@ -7,36 +7,36 @@ gsap.registerPlugin(ScrollTrigger)
 
 const METRICS = [
   {
-    label: 'Operação integrada',
-    title: 'Atendimento, metas e indicadores no mesmo painel',
+    label: 'Rotina mais simples',
+    title: 'Atendimento, metas e indicadores no mesmo lugar',
     value: 'Único',
     suffix: 'ambiente',
-    caption: 'A equipe acompanha a rotina da loja sem alternar entre telas e controles paralelos.',
+    caption: 'A equipe trabalha com menos troca de telas, menos controles paralelos e mais foco no cliente.',
     tone: 'amber',
   },
   {
-    label: 'Visão gerencial',
-    title: 'Resumo rápido para decisões do dia',
+    label: 'Decisão rápida',
+    title: 'O resumo certo para agir no dia',
     value: 'Tempo',
     suffix: 'real',
-    caption: 'Orçamentos, O.S., avisos, receitas vencidas e alertas aparecem em uma leitura direta.',
+    caption: 'Orçamentos, O.S., avisos, receitas vencidas e alertas aparecem de forma direta.',
     tone: 'teal',
   },
   {
-    label: 'Fluxo comercial',
+    label: 'Venda acompanhada',
     title: 'Do primeiro atendimento ao pós-venda',
     value: 'Ponta',
     suffix: 'a ponta',
-    caption: 'O Optfácil conecta tarefas operacionais com indicadores que ajudam a loja a evoluir.',
+    caption: 'O Optfácil conecta a operação com indicadores para você enxergar gargalos e oportunidades.',
     tone: 'green',
   },
 ]
 
 const FEATURES = [
-  'Receitas, medidas e histórico do cliente no mesmo ambiente',
-  'Orçamentos conectados ao guia de lentes e regras da loja',
-  'Ordens de serviço com rastreabilidade do balcão ao laboratório',
-  'Integração preparada para reduzir retrabalho entre equipes',
+  'Receitas, medidas e histórico do cliente sempre à mão',
+  'Orçamentos guiados pelas regras comerciais da sua loja',
+  'Ordens de serviço acompanhadas do balcão ao laboratório',
+  'Menos retrabalho entre atendimento, estoque, caixa e gestão',
 ]
 
 const OPTFACIL_SCREENSHOT = '/assets/optfacil%20images/Screenshot%202026-05-13%20at%2009.23.11.png'
@@ -135,17 +135,17 @@ export default function Integration() {
               <rect x="1" y="2" width="10" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
               <path d="M4 9v2M8 9v2M3 11h6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
             </svg>
-            Plataforma web
+            Plataforma web integrada
           </span>
 
           <h2 className="itg__title">
-            {['A', 'operação', 'da', 'ótica,'].map((word) => (
+            {['Tudo', 'que', 'a', 'ótica'].map((word) => (
               <span className="itg__word-wrap" key={word}>
                 <span className="itg__word">{word}&nbsp;</span>
               </span>
             ))}
             <br />
-            {['organizada', 'em', 'um', 'só', 'fluxo.'].map((word) => (
+            {['precisa', 'em', 'um', 'só', 'fluxo.'].map((word) => (
               <span className="itg__word-wrap" key={word}>
                 <span className="itg__word">{word}&nbsp;</span>
               </span>
@@ -153,8 +153,8 @@ export default function Integration() {
           </h2>
 
           <p className="itg__lead">
-            O Optfácil conecta atendimento, orçamento, medições e ordens de serviço em uma rotina web
-            mais clara para loja, laboratório e gestão.
+            O Optfácil conecta atendimento, orçamento, medidas e ordens de serviço para sua equipe
+            trabalhar com mais clareza do começo ao fim da venda.
           </p>
         </header>
 
@@ -165,8 +165,8 @@ export default function Integration() {
 
           <aside className="itg__metrics" aria-label="Destaques do Optfácil">
             <div className="itg__metrics-head">
-              <span>Leitura do painel</span>
-              <p>O que esse dashboard evidencia na rotina da ótica.</p>
+              <span>O que muda na rotina</span>
+              <p>Menos informação perdida e mais controle para decidir.</p>
             </div>
 
             <div className="itg__metric-list">

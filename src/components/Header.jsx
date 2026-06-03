@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
+import { handleNavClick } from '../router'
 
 const navLinks = [
-  { label: 'Produto',   href: '#produto'   },
-  { label: 'Soluções',  href: '#solucoes'  },
-  { label: 'Clientes',  href: '#clientes'  },
-  { label: 'Blog',      href: '#blog'      },
+  { label: 'Plataforma', href: '#plataforma' },
+  { label: 'Produtos',   href: '#produtos'   },
+  { label: 'CRM',        href: '#crm'        },
+  { label: 'Contato',    href: '#contact'    },
 ]
 
 export default function Header() {
@@ -134,10 +135,11 @@ export default function Header() {
 
           <a
             ref={logoRef}
-            href="#"
+            href="/"
             className="header__logo"
             onMouseEnter={handleLogoEnter}
             onMouseLeave={handleLogoLeave}
+            onClick={(e) => handleNavClick(e, '/')}
           >
             <img src="/assets/logo.png" alt="Dataweb" className="header__logo-img" />
           </a>
@@ -161,13 +163,13 @@ export default function Header() {
           <div className="header__right">
             <a
               ref={ctaRef}
-              href="#contato"
+              href="#contact"
               className="header__cta"
               onMouseMove={handleCtaMove}
               onMouseLeave={handleCtaLeave}
             >
               <span className="header__cta-shimmer" />
-              Fale com especialista
+              Agendar demonstração
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M3 7h8M8 4.5l2.5 2.5L8 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -219,11 +221,11 @@ export default function Header() {
         </div>
 
         <a
-          href="#contato"
+          href="#contact"
           className="btn btn--primary header__mobile-cta"
           onClick={() => setMobileOpen(false)}
         >
-          Fale com especialista
+          Agendar demonstração
         </a>
       </nav>
     </>

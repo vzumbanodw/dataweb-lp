@@ -13,14 +13,19 @@ export default function Footer() {
               Dataweb
             </div>
             <p className="footer__tagline">
-              Tecnologia que conecta todo o universo óptico.
+              Gestão mais simples, clientes mais próximos e decisões melhores para o setor óptico.
             </p>
           </div>
 
           <div>
-            <h4 className="footer__col-title">Pages</h4>
-            {['Home', 'About', 'Blog', 'Contact'].map((p) => (
-              <a key={p} href={`#${p.toLowerCase()}`} className="footer__link">{p}</a>
+            <h4 className="footer__col-title">Navegue</h4>
+            {[
+              { label: 'Início', href: '#hero' },
+              { label: 'Plataforma', href: '#plataforma' },
+              { label: 'Produtos', href: '#produtos' },
+              { label: 'CRM', href: '#crm' },
+            ].map((p) => (
+              <a key={p.label} href={p.href} className="footer__link">{p.label}</a>
             ))}
           </div>
 
@@ -31,7 +36,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="footer__col-title">Socials</h4>
+            <h4 className="footer__col-title">Redes sociais</h4>
             {[
               { label: 'LinkedIn', href: 'https://linkedin.com' },
               { label: 'Youtube', href: 'https://youtube.com' },
@@ -47,7 +52,7 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <span>Dataweb Tecnologia</span>
-          <a href="/privacy-policy">Privacy policy</a>
+          <a href="/privacy-policy">Política de privacidade</a>
         </div>
       </div>
     </footer>

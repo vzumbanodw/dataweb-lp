@@ -14,8 +14,8 @@ const CARDS = [
     pos: 'tl',
     color: '#f5c518',
     icon: 'pie',
-    title: 'Análise de vendas por segmento e marca',
-    desc: 'Descubra quais categorias de produtos mais vendem e onde concentrar seu estoque.',
+    title: 'Saiba o que mais vende na sua loja',
+    desc: 'Entenda segmentos, marcas e categorias para comprar melhor e reduzir estoque parado.',
     video: '/assets/cosmovideo.mp4',
   },
   {
@@ -23,8 +23,8 @@ const CARDS = [
     pos: 'tr',
     color: '#6C63FF',
     icon: 'bar',
-    title: 'Vendas por vendedor, médico',
-    desc: 'Entenda quais marcas geram mais faturamento e margem para o seu negócio.',
+    title: 'Veja quem vende, o que vende e por quê',
+    desc: 'Acompanhe desempenho por vendedor, médico e marca para orientar metas com mais precisão.',
     video: '/assets/herovideo.mp4',
   },
   {
@@ -32,8 +32,8 @@ const CARDS = [
     pos: 'bl',
     color: '#00B4D8',
     icon: 'trending',
-    title: 'Análise financeira por forma de pagamento, plano de contas e muito mais',
-    desc: 'Tenha visão clara da saúde financeira com contas a pagar e receber em tempo real.',
+    title: 'Tenha clareza sobre o dinheiro da operação',
+    desc: 'Veja formas de pagamento, plano de contas, contas a pagar e receber em tempo real.',
     video: '/assets/starvideo.mp4',
   },
   {
@@ -41,8 +41,8 @@ const CARDS = [
     pos: 'br',
     color: '#A6CE39',
     icon: 'target',
-    title: 'Metas por empresa, segmento e marca',
-    desc: 'Acompanhe metas por empresa, segmento, marca e vendedor com alertas inteligentes.',
+    title: 'Transforme metas em acompanhamento diário',
+    desc: 'Monitore metas por empresa, segmento, marca e vendedor antes do mês acabar.',
     video: '/assets/cosmovideo.mp4',
   },
 ]
@@ -266,22 +266,22 @@ export default function Analytics() {
               <rect x="4.75" y="3.5" width="2.5" height="7.5" rx="0.8" fill="currentColor" opacity="0.8"/>
               <rect x="8.5"  y="1"   width="2.5" height="10"  rx="0.8" fill="currentColor"/>
             </svg>
-            BI & Analytics
+            BI para vender melhor
           </span>
 
           {/* Split title */}
           <div className="ana__htitle-row">
             <h2 className="ana__htitle-left">
-              Enxergue o universo<br/>
-              do seu <span className="ana__title-accent">negócio.</span>
+              Pare de decidir no escuro<br/>
+              sobre o seu <span className="ana__title-accent">negócio.</span>
             </h2>
             <div className="ana__htitle-right">
               <p className="ana__hsub">
-                Transforme dados da sua ótica em informações estratégicas.
-                Interaja com cada módulo e veja a plataforma em ação.
+                A Dataweb mostra o que está funcionando, onde a loja perde dinheiro
+                e quais oportunidades merecem atenção agora.
               </p>
               <a href="#plataforma" className="ana__hsub-cta">
-                Ver plataforma completa
+                Ver a gestão completa
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -295,9 +295,9 @@ export default function Analytics() {
           {/* Stats row */}
           <div className="ana__hstats">
             {[
-              { target: 340, suffix: '%', label: 'mais visibilidade' },
-              { target: 2.5, suffix: '×',  label: 'mais conversão' },
-              { target: 98,  suffix: '%', label: 'satisfação dos clientes' },
+              { target: 340, suffix: '%', label: 'mais clareza sobre dados' },
+              { target: 2.5, suffix: '×',  label: 'mais foco comercial' },
+              { target: 98,  suffix: '%', label: 'rotina mais acompanhada' },
             ].map((s, i) => (
               <div key={i} className="ana__hstat" data-target={s.target}>
                 <div className="ana__hstat-value-row">

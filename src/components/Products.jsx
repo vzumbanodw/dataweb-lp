@@ -15,7 +15,7 @@ const PRODUCTS = [
     label: 'BI & Inteligência',
     color: '#f5c518',
     colorDark: '#b38600',
-    desc: 'Transforme dados da sua ótica em insights estratégicos. Dashboards em tempo real com KPIs de vendas, estoque e performance por marca e vendedor.',
+    desc: 'Veja os números que realmente ajudam a vender melhor: vendas, estoque, marcas, vendedores e margem em dashboards fáceis de acompanhar.',
     icon: (c) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <rect x="3" y="14" width="4" height="7" rx="1.5" stroke={c} strokeWidth="1.7"/>
@@ -26,7 +26,7 @@ const PRODUCTS = [
     ),
     badge: 'Novo',
     stat: '+340%',
-    statLabel: 'visibilidade',
+    statLabel: 'mais clareza',
   },
   {
     id: 'crm',
@@ -34,7 +34,7 @@ const PRODUCTS = [
     label: 'Relacionamento',
     color: '#6C63FF',
     colorDark: '#4a42d4',
-    desc: 'Gerencie toda a jornada do cliente — do primeiro contato ao pós-venda. Automações, histórico completo e fidelização integrada à operação.',
+    desc: 'Mantenha o cliente por perto depois da venda. Automatize contatos, acompanhe histórico e crie oportunidades de retorno.',
     icon: (c) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <circle cx="9" cy="7" r="4" stroke={c} strokeWidth="1.7"/>
@@ -44,7 +44,7 @@ const PRODUCTS = [
       </svg>
     ),
     stat: '2×',
-    statLabel: 'retenção',
+    statLabel: 'mais retorno',
   },
   {
     id: 'dilab',
@@ -52,7 +52,7 @@ const PRODUCTS = [
     label: 'Laboratório Digital',
     color: '#00B4D8',
     colorDark: '#0090ae',
-    desc: 'Conexão direta com laboratórios parceiros. Envie pedidos digitalmente, acompanhe o status de produção e receba laudos sem sair do sistema.',
+    desc: 'Envie pedidos para laboratórios parceiros, acompanhe o andamento e reduza ruídos entre loja, produção e entrega.',
     icon: (c) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M9 3v8L4.5 18A2 2 0 006.4 21h11.2a2 2 0 001.9-3L15 11V3" stroke={c} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
@@ -63,7 +63,7 @@ const PRODUCTS = [
       </svg>
     ),
     stat: '−80%',
-    statLabel: 'redigitação',
+    statLabel: 'menos redigitação',
   },
   {
     id: 'optfacil',
@@ -71,7 +71,7 @@ const PRODUCTS = [
     label: 'Gestão de O.S',
     color: '#A6CE39',
     colorDark: '#729018',
-    desc: 'Controle total do fluxo de ordens de serviço. Da receita ao laboratório, com status em tempo real, alertas automáticos e histórico do cliente.',
+    desc: 'Controle cada O.S. com mais segurança: receita, medidas, laboratório, prazos, alertas e histórico do cliente em um só lugar.',
     icon: (c) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <rect x="4" y="3" width="16" height="18" rx="2.5" stroke={c} strokeWidth="1.7"/>
@@ -82,7 +82,7 @@ const PRODUCTS = [
     ),
     badge: 'Popular',
     stat: '−60%',
-    statLabel: 'tempo/O.S',
+    statLabel: 'menos tempo por O.S.',
   },
   {
     id: 'pdv',
@@ -90,7 +90,7 @@ const PRODUCTS = [
     label: 'Ponto de Venda',
     color: '#FF6B6B',
     colorDark: '#d94444',
-    desc: 'Frente de caixa completa e integrada ao ERP. Vendas, trocas, orçamentos e fechamento de caixa em uma interface rápida e intuitiva.',
+    desc: 'Venda, orçamento, troca e fechamento de caixa em uma frente simples, rápida e conectada ao restante da operação.',
     icon: (c) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <rect x="2" y="7" width="20" height="14" rx="2.5" stroke={c} strokeWidth="1.7"/>
@@ -100,7 +100,7 @@ const PRODUCTS = [
       </svg>
     ),
     stat: '+55%',
-    statLabel: 'agilidade',
+    statLabel: 'mais agilidade',
   },
   {
     id: 'ecosystem',
@@ -108,7 +108,7 @@ const PRODUCTS = [
     label: 'Plataforma Completa',
     color: '#FF9F43',
     colorDark: '#c97400',
-    desc: 'Todos os módulos integrados em uma única plataforma. Dados fluem entre Analytics, CRM, Dilab, Optfácil e PDV sem esforço manual.',
+    desc: 'Todos os módulos conversam entre si para sua equipe trabalhar melhor e sua gestão enxergar a loja sem esforço manual.',
     icon: (c) => (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <circle cx="12" cy="12" r="3" stroke={c} strokeWidth="1.7"/>
@@ -127,7 +127,7 @@ const PRODUCTS = [
       </svg>
     ),
     stat: '1×',
-    statLabel: 'plataforma',
+    statLabel: 'operação',
   },
 ]
 
@@ -246,12 +246,12 @@ export default function Products() {
           {/* Title */}
           <div className="prd__htitle-row">
             <h2 className="prd__htitle" ref={titleRef}>
-              Uma plataforma,{' '}
-              <span className="prd__htitle-accent">cinco superpoderes.</span>
+              Escolha por onde começar.{' '}
+              <span className="prd__htitle-accent">Cresça com tudo integrado.</span>
             </h2>
             <p className="prd__hsub" ref={subRef}>
-              Cada módulo foi pensado para resolver um desafio real da sua ótica —
-              e todos se conectam em um único ecossistema integrado.
+              Você pode resolver uma dor específica hoje e evoluir para uma gestão completa,
+              sem perder dados, histórico ou produtividade no caminho.
             </p>
           </div>
 

@@ -7,14 +7,15 @@ export default function Franchise() {
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path d="M6 1L10 4v4L6 11 2 8V4L6 1z" stroke="currentColor" strokeWidth="1.2" fill="none"/>
             </svg>
-            Franquias
+            Redes e franquias
           </span>
-          <h2 className="franchise__title">Pense Grande</h2>
+          <h2 className="franchise__title">Cresça sem perder o controle</h2>
           <p className="franchise__text">
-            Plataforma preparada para gerenciamento de suas franquias. Controle múltiplas unidades com visibilidade total.
+            Acompanhe várias unidades, compare resultados e padronize processos sem abrir mão
+            da visão individual de cada loja.
           </p>
           <a href="#contact" className="btn btn--primary">
-            Fale com um consultor
+            Quero escalar minha rede
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

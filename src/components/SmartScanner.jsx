@@ -12,9 +12,9 @@ const STEPS = [
   {
     id: 'scan',
     num: '01',
-    title: 'Escaneie os produtos',
-    desc: 'Com o aplicativo aberto, basta passar o leitor nos códigos de barras e registrar os itens.',
-    highlight: 'Cada produto é contado com um simples “beep”.',
+    title: 'Passe o leitor nos produtos',
+    desc: 'Abra o app, leia os códigos de barras e registre os itens sem montar planilhas.',
+    highlight: 'Cada leitura vira contagem registrada na hora.',
     tone: 'teal',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -37,7 +37,7 @@ const STEPS = [
     id: 'sync',
     num: '02',
     title: 'Sincronização automática',
-    desc: 'Quando a contagem termina, todas as informações são enviadas automaticamente para o sistema.',
+    desc: 'Ao finalizar, os dados entram no ERP Dataweb prontos para conferência e atualização.',
     bullets: ['Sem planilhas', 'Sem digitação manual'],
     tone: 'green',
     icon: (
@@ -62,8 +62,8 @@ const DIFFERENTIALS = [
   {
     id: 'segmento',
     eyebrow: 'Auditoria',
-    title: 'Contagem por segmento ou marca',
-    desc: 'O gerente solicita contagens específicas — por segmento ou por marca — para verificações estratégicas e auditorias rápidas.',
+    title: 'Conte só o que precisa conferir',
+    desc: 'Faça contagens por segmento ou marca para auditorias rápidas, sem parar toda a operação.',
     tone: 'amber',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -80,8 +80,8 @@ const DIFFERENTIALS = [
   {
     id: 'validacao',
     eyebrow: 'Conferência',
-    title: 'Validação de contagem',
-    desc: 'Antes de importar para o sistema, é possível validar a contagem realizada e, se preciso, solicitar uma nova conferência.',
+    title: 'Valide antes de atualizar',
+    desc: 'Confira a contagem antes de importar e peça nova conferência quando algo não fechar.',
     tone: 'teal',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -98,8 +98,8 @@ const DIFFERENTIALS = [
   {
     id: 'integracao',
     eyebrow: 'Segurança',
-    title: 'Integração total com o ERP',
-    desc: 'O aplicativo é totalmente integrado ao ERP Dataweb, garantindo controle e segurança nas informações em todas as etapas.',
+    title: 'Tudo integrado ao ERP',
+    desc: 'A contagem chega ao ERP Dataweb com rastreabilidade, controle e menos risco de erro manual.',
     tone: 'green',
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -379,15 +379,15 @@ export default function SmartScanner() {
         <header className="ssn__header" ref={headerRef}>
           <span className="ssn__eyebrow">
             <span className="ssn__eyebrow-dot" aria-hidden="true" />
-            App SmartScanner
+            Estoque mais confiável
           </span>
-          <p className="ssn__opener">Contagem de estoque sem complicação.</p>
+          <p className="ssn__opener">Inventário sem planilha, retrabalho ou improviso.</p>
           <h2 className="ssn__title">
             Smart<span className="ssn__title-accent">Scanner</span>
           </h2>
           <p className="ssn__sub">
-            O aplicativo que transforma a contagem de estoque da sua ótica em um processo
-            rápido, simples e seguro.
+            O aplicativo que torna a contagem de estoque da sua ótica mais rápida,
+            organizada e confiável.
           </p>
         </header>
 
@@ -395,14 +395,13 @@ export default function SmartScanner() {
         <div className="ssn__main" ref={showcaseRef}>
           <div className="ssn__main-text">
             <p className="ssn__main-lead">
-              Contar estoque manualmente pode ser <em>demorado</em>, <em>cansativo</em> e
-              sujeito a <em>erros</em>.
+              Contagem manual toma tempo, cansa a equipe e ainda pode deixar erro escondido
+              no estoque.
             </p>
             <p className="ssn__main-body">
-              Com o SmartScanner, basta escanear os produtos e o sistema registra
-              automaticamente todas as informações. Ao final da contagem, os dados são
-              enviados diretamente para o ERP Dataweb, eliminando retrabalho e reduzindo
-              erros de digitação.
+              Com o SmartScanner, cada leitura já vira informação no sistema. No final,
+              os dados seguem para o ERP Dataweb, reduzindo retrabalho e deixando a
+              conferência muito mais simples.
             </p>
 
             <ul className="ssn__chips" aria-label="Benefícios diretos">
@@ -488,7 +487,7 @@ export default function SmartScanner() {
         <div className="ssn__block">
           <div className="ssn__block-head">
             <span className="ssn__block-eyebrow">Como funciona</span>
-            <h3 className="ssn__block-title">Dois passos. Sem complicação.</h3>
+            <h3 className="ssn__block-title">Dois passos para fechar a contagem.</h3>
           </div>
 
           <div className="ssn__steps">
@@ -530,7 +529,7 @@ export default function SmartScanner() {
         <div className="ssn__block">
           <div className="ssn__block-head">
             <span className="ssn__block-eyebrow">Diferenciais</span>
-            <h3 className="ssn__block-title">Construído para a operação real da ótica.</h3>
+            <h3 className="ssn__block-title">Feito para a rotina real da ótica.</h3>
           </div>
 
           <div className="ssn__diffs">
@@ -554,12 +553,12 @@ export default function SmartScanner() {
           <div className="ssn__closing-frame">
             <span className="ssn__closing-eyebrow">Resultado</span>
             <p className="ssn__closing-quote">
-              Estoque organizado começa com uma{' '}
-              <span className="ssn__closing-accent">contagem inteligente.</span>
+              Estoque confiável começa com uma{' '}
+              <span className="ssn__closing-accent">contagem bem feita.</span>
             </p>
             <p className="ssn__closing-text">
-              Com o SmartScanner, a contagem de estoque deixa de ser um problema e passa
-              a ser um processo rápido, seguro e confiável.
+              Com o SmartScanner, sua equipe ganha tempo, reduz erro e trabalha com números
+              mais seguros para comprar, vender e repor.
             </p>
           </div>
         </div>

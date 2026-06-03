@@ -7,32 +7,32 @@ gsap.registerPlugin(ScrollTrigger)
 const SLIDES = [
   {
     tag: 'Dados da loja',
-    title: 'Acompanhe a loja em tempo real',
-    description: 'Compare faturamento mensal, visualize indicadores e acompanhe os principais números da operação direto do smartphone.',
+    title: 'Saiba como a loja está hoje',
+    description: 'Veja faturamento, clientes e indicadores importantes sem esperar relatório ou depender de planilhas.',
     accent: '#FBB040',
     num: '01',
     image: '/assets/app%20images/dadosdaloja.png',
   },
   {
     tag: 'Performance',
-    title: 'Veja o desempenho dos vendedores',
-    description: 'Acompanhe o ranking da equipe, ticket médio e resultados individuais para tomar decisões com mais velocidade.',
+    title: 'Ajude sua equipe a vender melhor',
+    description: 'Acompanhe ranking, ticket médio e resultados individuais para orientar o time com conversas mais objetivas.',
     accent: '#A6CE39',
     num: '02',
     image: '/assets/app%20images/performance.png',
   },
   {
     tag: 'Relatórios',
-    title: 'Relatórios financeiros na palma da mão',
-    description: 'Analise lucratividade, evolução dos indicadores e tendências da loja com telas claras e atualizadas.',
+    title: 'Relatórios claros, sem caça aos números',
+    description: 'Entenda lucratividade, evolução dos indicadores e tendências da loja com telas simples de consultar.',
     accent: '#00A0B1',
     num: '03',
     image: '/assets/app%20images/relatorios.png',
   },
   {
     tag: 'Equilíbrio',
-    title: 'Entenda o ponto de equilíbrio',
-    description: 'Confira receitas, custos e margens para saber com clareza quando sua loja opera acima do ponto ideal.',
+    title: 'Controle margem antes que vire problema',
+    description: 'Acompanhe receitas, custos e ponto de equilíbrio para decidir preço, compras e metas com mais segurança.',
     accent: '#FBB040',
     num: '04',
     image: '/assets/app%20images/pontodeequilibrio.png',
@@ -209,16 +209,16 @@ export default function AppShowcase() {
               <rect x="1" y="7" width="4" height="4" rx="1" fill="currentColor" opacity="0.5"/>
               <rect x="7" y="7" width="4" height="4" rx="1" fill="currentColor"/>
             </svg>
-            Aplicativo
+            App de gestão
           </span>
           <h2 className="acs__htitle">
-            {'Sua ótica na'.split(' ').map((w, i) => (
+            {'A loja nas'.split(' ').map((w, i) => (
               <span key={i} className="acs__hword-wrap">
                 <span className="acs__hword">{w}&nbsp;</span>
               </span>
             ))}
             <br/>
-            {'palma da mão.'.split(' ').map((w, i) => (
+            {'suas mãos.'.split(' ').map((w, i) => (
               <span key={i} className="acs__hword-wrap">
                 <span className="acs__hword">{w}&nbsp;</span>
               </span>
@@ -226,7 +226,7 @@ export default function AppShowcase() {
           </h2>
           <div className="acs__hline" />
           <p className="acs__hsub">
-            Monitore métricas de vendas, clientes e estoque em tempo real, direto do seu smartphone.
+            Acompanhe o que importa mesmo quando você não está no balcão.
           </p>
         </div>
 
@@ -271,8 +271,8 @@ export default function AppShowcase() {
             </div>
 
             <div className="acs__footer">
-              <a href="#contato" className="btn btn--primary acs__cta">
-                Fale com a gente
+              <a href="#contact" className="btn btn--primary acs__cta">
+                Quero conhecer o app
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>

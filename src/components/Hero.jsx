@@ -1,11 +1,12 @@
 import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
+import { handleNavClick } from '../router'
 
 const metrics = [
   { value: '25+',    label: 'Anos no mercado' },
-  { value: '100mi+', label: 'Transações/mês'   },
-  { value: '5.000+', label: 'Clientes ativos'  },
-  { value: '92%',    label: 'SLA de suporte'   },
+  { value: '100mi+', label: 'Transações por mês' },
+  { value: '5.000+', label: 'Clientes atendidos' },
+  { value: '92%',    label: 'SLA de suporte' },
 ]
 
 const logos = ['Essilor.png', 'Zeiss.png', 'Diniz.png']
@@ -203,20 +204,20 @@ export default function Hero() {
 
           <div className="hero__eyebrow" ref={eyebrowRef}>
             <span className="hero__eyebrow-dot" />
-            Plataforma líder para o setor óptico
+            Gestão completa para óticas e laboratórios
           </div>
 
           <h1 className="hero__title" ref={titleRef}>
-            <span className="hero__title-line">Tecnologia que</span>
-            <span className="hero__title-line">conecta todo o</span>
+            <span className="hero__title-line">Sua ótica mais</span>
+            <span className="hero__title-line">organizada, ágil e</span>
             <span className="hero__title-line">
-              <span className="hero__title-accent">universo óptico</span>
+              <span className="hero__title-accent">pronta para vender mais</span>
             </span>
           </h1>
 
           <p className="hero__subtitle" ref={subtitleRef}>
-            Ecossistema ERP + CRM + BI + Apps + gestão completa
-            para óticas e laboratórios ópticos.
+            A Dataweb reúne ERP, CRM, BI e aplicativos em uma plataforma simples
+            para cuidar da operação, aproximar clientes e transformar dados em venda.
           </p>
 
           <div className="hero__trust" ref={trustRef}>
@@ -225,7 +226,7 @@ export default function Hero() {
                 <circle cx="7.5" cy="7.5" r="6.5" stroke="#4ade80" strokeWidth="1.2"/>
                 <path d="M4.5 7.5l2 2 4-4" stroke="#4ade80" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Secure Cloud
+              Dados em nuvem
             </span>
             <span className="hero__trust-sep" />
             <span className="hero__trust-item">
@@ -233,7 +234,7 @@ export default function Hero() {
                 <circle cx="7.5" cy="7.5" r="6.5" stroke="#4ade80" strokeWidth="1.2"/>
                 <path d="M4.5 7.5l2 2 4-4" stroke="#4ade80" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Suporte SLA 92%
+              Suporte próximo
             </span>
             <span className="hero__trust-sep" />
             <span className="hero__trust-item">
@@ -241,15 +242,15 @@ export default function Hero() {
                 <circle cx="7.5" cy="7.5" r="6.5" stroke="#4ade80" strokeWidth="1.2"/>
                 <path d="M4.5 7.5l2 2 4-4" stroke="#4ade80" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Migração garantida
+              Implantação acompanhada
             </span>
           </div>
 
           <div className="hero__actions" ref={actionsRef}>
             <a
-              href="#sou-loja"
+              href="/sou-loja"
               className="btn btn--hero-white"
-              onClick={handleBtnClick}
+              onClick={(e) => { handleBtnClick(e); handleNavClick(e, '/sou-loja') }}
             >
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                 <path d="M2 6l1-3.5h9L13 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -259,9 +260,9 @@ export default function Hero() {
               Sou loja
             </a>
             <a
-              href="#sou-laboratorio"
+              href="/sou-laboratorio"
               className="btn btn--hero-ghost"
-              onClick={handleBtnClick}
+              onClick={(e) => { handleBtnClick(e); handleNavClick(e, '/sou-laboratorio') }}
             >
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
                 <path d="M1 13.5V7l3.5-2.5V7L8 4.5V7l3.5-2.5v9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -286,7 +287,7 @@ export default function Hero() {
           <div className="hero__panel-header">
             <div className="hero__panel-badge">
               <span className="hero__panel-badge-dot" />
-              Resultados em tempo real
+              Decisões em tempo real
             </div>
             <div className="hero__panel-dots">
               <span /><span /><span />
@@ -295,9 +296,9 @@ export default function Hero() {
 
           <div className="hero__panel-highlight">
             <div className="hero__panel-hl-left">
-              <span className="hero__panel-hl-label">Crescimento médio pós-implantação</span>
+              <span className="hero__panel-hl-label">Mais controle depois da implantação</span>
               <span className="hero__panel-hl-value" ref={hlValueRef}>+0%</span>
-              <span className="hero__panel-hl-sub">no faturamento dos clientes</span>
+              <span className="hero__panel-hl-sub">de clareza sobre vendas, estoque e clientes</span>
             </div>
             <div className="hero__panel-hl-chart" aria-hidden="true">
               <svg viewBox="0 0 90 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -350,14 +351,14 @@ export default function Hero() {
               <circle cx="7" cy="7" r="6" stroke="#4ade80" strokeWidth="1.1"/>
               <path d="M4 7l2 2 4-4" stroke="#4ade80" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            Migração de dados 100% segura e garantida
+            Sua equipe não fica sozinha: implantação e migração acompanhadas
           </div>
         </div>
 
       </div>
 
       <div className="hero__ticker-bar" aria-hidden="true">
-        <span className="hero__ticker-label">Parceiros de referência</span>
+        <span className="hero__ticker-label">Marcas que fazem parte da rotina óptica</span>
         <div className="hero__ticker-viewport">
           <div className="hero__ticker-track" ref={tickerRef}>
             {tickerItems.map((file, i) => (

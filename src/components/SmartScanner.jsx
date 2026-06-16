@@ -278,6 +278,8 @@ export default function SmartScanner() {
   const closingRef = useRef(null)
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
     const ctx = gsap.context(() => {
       const eyebrow = headerRef.current?.querySelector('.ssn__eyebrow')
       const opener = headerRef.current?.querySelector('.ssn__opener')

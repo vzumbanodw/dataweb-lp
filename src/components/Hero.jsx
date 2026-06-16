@@ -3,10 +3,17 @@ import { gsap } from 'gsap'
 import { handleNavClick } from '../router'
 
 const metrics = [
-  { value: '25+',    label: 'Anos no mercado' },
-  { value: '100mi+', label: 'Transações por mês' },
-  { value: '5.000+', label: 'Clientes atendidos' },
+  { value: '25+',    label: 'anos no setor óptico' },
+  { value: '5.000+', label: 'lojas atendidas' },
+  { value: '100mi+', label: 'transações por mês' },
   { value: '92%',    label: 'SLA de suporte' },
+]
+
+const flowItems = [
+  { label: 'Vendas', tone: 'teal' },
+  { label: 'Estoque', tone: 'amber' },
+  { label: 'Clientes', tone: 'green' },
+  { label: 'BI', tone: 'blue' },
 ]
 
 const logos = ['Essilor.png', 'Zeiss.png', 'Diniz.png']
@@ -39,90 +46,113 @@ export default function Hero() {
   const [panelHovered, setPanelHovered] = useState(false)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 })
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-      tl.fromTo(eyebrowRef.current,
-        { y: 20, opacity: 0, scale: 0.9 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: 'back.out(2)' }
-      )
-      .fromTo(titleRef.current?.querySelectorAll('.hero__title-line'),
-        { y: 48, opacity: 0, skewY: 3 },
-        { y: 0, opacity: 1, skewY: 0, duration: 0.65, stagger: 0.12, ease: 'power3.out' },
-        '-=0.25'
-      )
-      .fromTo(subtitleRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
-        '-=0.3'
-      )
-      .fromTo(trustRef.current?.querySelectorAll('.hero__trust-item, .hero__trust-sep'),
-        { y: 12, opacity: 0, scale: 0.85 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.4, stagger: 0.06, ease: 'back.out(1.7)' },
-        '-=0.25'
-      )
-      .fromTo(actionsRef.current?.querySelectorAll('a'),
-        { y: 16, opacity: 0, scale: 0.9 },
-        { y: 0, opacity: 1, scale: 1, duration: 0.45, stagger: 0.1, ease: 'back.out(2)' },
-        '-=0.2'
-      )
-      .fromTo(panelRef.current,
-        { x: 60, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.7, ease: 'power3.out' },
-        '-=0.6'
-      )
+    if (reduceMotion) {
+      // Skip motion entirely — content is visible at rest; just pin final values.
+      if (hlValueRef.current) hlValueRef.current.textContent = '+40%'
+      return
+    }
 
-      setTimeout(() => {
-        const path = chartPathRef.current
-        if (!path) return
-        const len = path.getTotalLength?.() || 180
-        gsap.fromTo(path,
-          { strokeDasharray: len, strokeDashoffset: len },
-          { strokeDashoffset: 0, duration: 1.4, ease: 'power2.out', delay: 0.3 }
+    let ctx
+
+    const play = () => {
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({ delay: 0.15 })
+
+        tl.fromTo(eyebrowRef.current,
+          { y: 20, opacity: 0, scale: 0.9 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: 'back.out(2)' }
         )
-      }, 800)
+        .fromTo(titleRef.current?.querySelectorAll('.hero__title-line'),
+          { y: 48, opacity: 0, skewY: 3, filter: 'blur(6px)' },
+          {
+            y: 0, opacity: 1, skewY: 0, filter: 'blur(0px)',
+            duration: 0.7, stagger: 0.12, ease: 'power3.out', clearProps: 'filter',
+          },
+          '-=0.25'
+        )
+        .fromTo(subtitleRef.current,
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
+          '-=0.3'
+        )
+        .fromTo(trustRef.current,
+          { y: 16, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' },
+          '-=0.25'
+        )
+        .fromTo(actionsRef.current?.querySelectorAll('a'),
+          { y: 16, opacity: 0, scale: 0.9 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.45, stagger: 0.1, ease: 'back.out(2)' },
+          '-=0.2'
+        )
+        .fromTo(panelRef.current,
+          { x: 60, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.7, ease: 'power3.out' },
+          '-=0.6'
+        )
 
-    }, heroRef)
+        const path = chartPathRef.current
+        if (path) {
+          const len = path.getTotalLength?.() || 180
+          gsap.fromTo(path,
+            { strokeDasharray: len, strokeDashoffset: len },
+            { strokeDashoffset: 0, duration: 1.4, ease: 'power2.out', delay: 1.1 }
+          )
+        }
 
-    return () => ctx.revert()
-  }, [])
+        const targets = [25, 100, 5000, 92]
+        const formats = [
+          (n) => `${n}+`,
+          (n) => `${n}mi+`,
+          (n) => `${n.toLocaleString('pt-BR')}+`,
+          (n) => `${n}%`,
+        ]
+        metricRefs.current.forEach((el, i) => {
+          if (!el) return
+          const obj = { val: 0 }
+          gsap.to(obj, {
+            val: targets[i],
+            duration: 1.8,
+            delay: 0.9 + i * 0.12,
+            ease: 'power2.out',
+            onUpdate() { el.textContent = formats[i](Math.round(obj.val)) },
+          })
+        })
 
-  useEffect(() => {
-    const targets = [25, 100, 5000, 92]
-    const formats = [
-      (n) => `${n}+`,
-      (n) => `${n}mi+`,
-      (n) => `${n.toLocaleString('pt-BR')}+`,
-      (n) => `${n}%`,
-    ]
-    metricRefs.current.forEach((el, i) => {
-      if (!el) return
-      const obj = { val: 0 }
-      gsap.to(obj, {
-        val: targets[i],
-        duration: 1.8,
-        delay: 0.9 + i * 0.12,
-        ease: 'power2.out',
-        onUpdate() { el.textContent = formats[i](Math.round(obj.val)) },
-      })
-    })
+        if (hlValueRef.current) {
+          const obj = { val: 0 }
+          gsap.to(obj, {
+            val: 40,
+            duration: 1.6,
+            delay: 1.0,
+            ease: 'power2.out',
+            onUpdate() {
+              if (hlValueRef.current)
+                hlValueRef.current.textContent = `+${Math.round(obj.val)}%`
+            },
+          })
+        }
+      }, heroRef)
+    }
 
-    if (hlValueRef.current) {
-      const obj = { val: 0 }
-      gsap.to(obj, {
-        val: 40,
-        duration: 1.6,
-        delay: 1.0,
-        ease: 'power2.out',
-        onUpdate() {
-          if (hlValueRef.current)
-            hlValueRef.current.textContent = `+${Math.round(obj.val)}%`
-        },
-      })
+    // While the splash is covering the page, hold the entrance so the
+    // orchestration is actually seen after the wipe.
+    if (document.querySelector('.splash')) {
+      window.addEventListener('dw:splash-done', play, { once: true })
+    } else {
+      play()
+    }
+
+    return () => {
+      window.removeEventListener('dw:splash-done', play)
+      ctx?.revert()
     }
   }, [])
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     requestAnimationFrame(() => {
       const track = tickerRef.current
       if (!track) return
@@ -140,6 +170,7 @@ export default function Hero() {
 
   const handlePanelMove = (e) => {
     if (!panelRef.current) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const rect = panelRef.current.getBoundingClientRect()
     const cx = rect.left + rect.width / 2
     const cy = rect.top  + rect.height / 2
@@ -175,7 +206,7 @@ export default function Hero() {
 
       <div className="hero__bg">
         <video className="hero__video" autoPlay loop muted playsInline>
-          <source src="/assets/rocket04.mov" type="video/mp4" />
+          <source src="/assets/sistemagestao.mov" type="video/mp4" />
         </video>
         <div className="hero__overlay" />
       </div>
@@ -204,47 +235,38 @@ export default function Hero() {
 
           <div className="hero__eyebrow" ref={eyebrowRef}>
             <span className="hero__eyebrow-dot" />
-            Gestão completa para óticas e laboratórios
+            Plataforma Dataweb para o universo óptico
           </div>
 
           <h1 className="hero__title" ref={titleRef}>
-            <span className="hero__title-line">Sua ótica mais</span>
-            <span className="hero__title-line">organizada, ágil e</span>
+            <span className="hero__title-line">Tecnologia que</span>
+            <span className="hero__title-line">conecta todo o</span>
             <span className="hero__title-line">
-              <span className="hero__title-accent">pronta para vender mais</span>
+              <span className="hero__title-accent">universo óptico.</span>
             </span>
           </h1>
 
           <p className="hero__subtitle" ref={subtitleRef}>
-            A Dataweb reúne ERP, CRM, BI e aplicativos em uma plataforma simples
-            para cuidar da operação, aproximar clientes e transformar dados em venda.
+            ERP, CRM, BI e aplicativos conectados para organizar a operação,
+            aproximar clientes e transformar dados em decisões comerciais.
           </p>
 
-          <div className="hero__trust" ref={trustRef}>
+          <nav className="hero__trust" ref={trustRef} aria-label="Diferenciais">
             <span className="hero__trust-item">
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                <circle cx="7.5" cy="7.5" r="6.5" stroke="#4ade80" strokeWidth="1.2"/>
-                <path d="M4.5 7.5l2 2 4-4" stroke="#4ade80" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <span className="hero__trust-dot" />
+              ERP, CRM e BI integrados
+            </span>
+            <span className="hero__trust-divider" aria-hidden="true" />
+            <span className="hero__trust-item">
+              <span className="hero__trust-dot" />
               Dados em nuvem
             </span>
-            <span className="hero__trust-sep" />
+            <span className="hero__trust-divider" aria-hidden="true" />
             <span className="hero__trust-item">
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                <circle cx="7.5" cy="7.5" r="6.5" stroke="#4ade80" strokeWidth="1.2"/>
-                <path d="M4.5 7.5l2 2 4-4" stroke="#4ade80" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Suporte próximo
+              <span className="hero__trust-dot" />
+              Suporte e implantação próximos
             </span>
-            <span className="hero__trust-sep" />
-            <span className="hero__trust-item">
-              <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-                <circle cx="7.5" cy="7.5" r="6.5" stroke="#4ade80" strokeWidth="1.2"/>
-                <path d="M4.5 7.5l2 2 4-4" stroke="#4ade80" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Implantação acompanhada
-            </span>
-          </div>
+          </nav>
 
           <div className="hero__actions" ref={actionsRef}>
             <a
@@ -284,74 +306,84 @@ export default function Hero() {
           onMouseLeave={handlePanelLeave}
           aria-hidden="true"
         >
-          <div className="hero__panel-header">
-            <div className="hero__panel-badge">
-              <span className="hero__panel-badge-dot" />
-              Decisões em tempo real
+          <div className="hero__panel-feature">
+            <div className="hero__panel-feature-head">
+              <span className="hero__panel-feature-label">Visibilidade da gestão</span>
+              <span className="hero__panel-feature-trend">
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 8.5L5 5l2.2 2L10 3M10 3H7M10 3v3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                +12 meses
+              </span>
             </div>
-            <div className="hero__panel-dots">
-              <span /><span /><span />
-            </div>
-          </div>
 
-          <div className="hero__panel-highlight">
-            <div className="hero__panel-hl-left">
-              <span className="hero__panel-hl-label">Mais controle depois da implantação</span>
-              <span className="hero__panel-hl-value" ref={hlValueRef}>+0%</span>
-              <span className="hero__panel-hl-sub">de clareza sobre vendas, estoque e clientes</span>
+            <div className="hero__panel-feature-row">
+              <span className="hero__panel-feature-value" ref={hlValueRef}>+0%</span>
+              <span className="hero__panel-feature-sub">mais clareza sobre vendas,<br />estoque e clientes</span>
             </div>
-            <div className="hero__panel-hl-chart" aria-hidden="true">
-              <svg viewBox="0 0 90 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <div className="hero__panel-chart" aria-hidden="true">
+              <svg viewBox="0 0 320 88" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                  <linearGradient id="cg" x1="0" y1="0" x2="90" y2="0" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="#FF9C4B"/>
-                    <stop offset="100%" stopColor="#f5c518"/>
+                  <linearGradient id="cg" x1="0" y1="0" x2="320" y2="0" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#FFD060"/>
+                    <stop offset="100%" stopColor="#FFAE00"/>
                   </linearGradient>
-                  <linearGradient id="ag" x1="0" y1="0" x2="0" y2="50" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stopColor="#FF9C4B" stopOpacity="0.3"/>
-                    <stop offset="100%" stopColor="#FF9C4B" stopOpacity="0"/>
+                  <linearGradient id="ag" x1="0" y1="0" x2="0" y2="88" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#FFAE00" stopOpacity="0.3"/>
+                    <stop offset="100%" stopColor="#FFAE00" stopOpacity="0"/>
                   </linearGradient>
                 </defs>
                 <polygon
-                  points="0,46 18,36 36,38 54,22 72,12 90,4 90,50 0,50"
+                  points="0,70 64,56 128,60 192,36 256,24 320,9 320,88 0,88"
                   fill="url(#ag)"
                 />
                 <polyline
                   ref={chartPathRef}
-                  points="0,46 18,36 36,38 54,22 72,12 90,4"
+                  points="0,70 64,56 128,60 192,36 256,24 320,9"
                   stroke="url(#cg)"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
-                <circle cx="90" cy="4" r="3.5" fill="#f5c518">
-                  <animate attributeName="r" values="3.5;5;3.5" dur="2s" repeatCount="indefinite"/>
-                  <animate attributeName="opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite"/>
+                <circle cx="320" cy="9" r="4" fill="#FFAE00">
+                  <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="1;0.55;1" dur="2s" repeatCount="indefinite"/>
                 </circle>
               </svg>
             </div>
           </div>
 
-          <div className="hero__panel-grid">
+          <div className="hero__panel-flow" aria-hidden="true">
+            {flowItems.map((item) => (
+              <span className={`hero__panel-flow-item hero__panel-flow-item--${item.tone}`} key={item.label}>
+                {item.label}
+              </span>
+            ))}
+          </div>
+
+          <div className="hero__panel-stats">
             {metrics.map((m, i) => (
-              <div className="hero__panel-metric" key={i}>
+              <div className="hero__panel-stat" key={i}>
+                <span className="hero__panel-stat-tick" aria-hidden="true" />
                 <span
-                  className="hero__panel-metric-value"
+                  className="hero__panel-stat-value"
                   ref={(el) => (metricRefs.current[i] = el)}
                 >
                   {m.value}
                 </span>
-                <span className="hero__panel-metric-label">{m.label}</span>
+                <span className="hero__panel-stat-label">{m.label}</span>
               </div>
             ))}
           </div>
 
-          <div className="hero__panel-footer">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <circle cx="7" cy="7" r="6" stroke="#4ade80" strokeWidth="1.1"/>
-              <path d="M4 7l2 2 4-4" stroke="#4ade80" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Sua equipe não fica sozinha: implantação e migração acompanhadas
+          <div className="hero__panel-trust">
+            <span className="hero__panel-trust-icon">
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                <path d="M3.5 7l2.5 2.5L11 4.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
+            Implantação e migração acompanhadas de perto
           </div>
         </div>
 

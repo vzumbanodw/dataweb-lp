@@ -16,6 +16,18 @@ export default function SplashScreen({ onComplete }) {
       return
     }
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(logo, { opacity: 1, y: 0 })
+      const timer = setTimeout(() => {
+        document.body.style.overflow = ''
+        onComplete?.()
+      }, 900)
+      return () => {
+        clearTimeout(timer)
+        document.body.style.overflow = ''
+      }
+    }
+
     gsap.set(logo, { opacity: 0, y: 20 })
     gsap.set(wipe, { yPercent: 100 })
 

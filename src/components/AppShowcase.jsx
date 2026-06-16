@@ -86,10 +86,14 @@ export default function AppShowcase() {
   const fns          = useRef({ goTo: null, startProgress: null })
   const headerRef    = useRef(null)
   const sectionRef   = useRef(null)
+  const headerTrigger = useRef(null)
 
   useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
     function startProgress() {
-      if (!progressRef.current) return
+      /* No autoplay carousel for reduced-motion users — manual nav still works */
+      if (!progressRef.current || reduceMotion) return
       progressTween.current?.kill()
       gsap.set(progressRef.current, { scaleX: 0, transformOrigin: 'left center' })
       progressTween.current = gsap.to(progressRef.current, {
@@ -126,21 +130,25 @@ export default function AppShowcase() {
         }
 
         const target = getRoleProps(newRole, dir)
-        tl.to(el, { ...target, duration: 0.6, ease: 'power3.inOut' }, 0)
+        tl.to(el, { ...target, duration: reduceMotion ? 0 : 0.6, ease: 'power3.inOut' }, 0)
       })
 
       const textEl = textRef.current
       if (textEl) {
-        tl.to(textEl,    { opacity: 0, y: -16, duration: 0.22, ease: 'power2.in'  }, 0)
-        tl.call(() => setDisplayIdx(newIdx), null, 0.25)
-        tl.fromTo(textEl, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.38, ease: 'power2.out' }, 0.27)
+        if (reduceMotion) {
+          tl.call(() => setDisplayIdx(newIdx), null, 0)
+        } else {
+          tl.to(textEl,    { opacity: 0, y: -16, duration: 0.22, ease: 'power2.in'  }, 0)
+          tl.call(() => setDisplayIdx(newIdx), null, 0.25)
+          tl.fromTo(textEl, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.38, ease: 'power2.out' }, 0.27)
+        }
       }
     }
 
     fns.current = { goTo, startProgress }
 
     /* ── Header split-word entrance ── */
-    if (headerRef.current) {
+    if (headerRef.current && !reduceMotion) {
       const words = headerRef.current.querySelectorAll('.acs__hword')
       const sub   = headerRef.current.querySelector('.acs__hsub')
       const tag   = headerRef.current.querySelector('.acs__htag')
@@ -151,7 +159,7 @@ export default function AppShowcase() {
       gsap.set(sub,   { autoAlpha: 0, y: 16 })
       gsap.set(line,  { autoAlpha: 1, scaleX: 0, transformOrigin: 'left center' })
 
-      ScrollTrigger.create({
+      headerTrigger.current = ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top 70%',
         once: true,
@@ -181,7 +189,10 @@ export default function AppShowcase() {
     })
 
     startProgress()
-    return () => { progressTween.current?.kill() }
+    return () => {
+      progressTween.current?.kill()
+      headerTrigger.current?.kill()
+    }
   }, [])
 
   function handleNav(dir) {

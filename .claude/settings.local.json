@@ -20,7 +20,12 @@
       "Bash(curl -sI http://localhost:3001/)",
       "Bash(kill %1)",
       "Bash(wait)",
-      "Bash(pkill -f \"vite preview\")"
+      "Bash(pkill -f \"vite preview\")",
+      "Bash(lsof -ti:5199)",
+      "Bash(xargs kill)",
+      "Bash(grep -iE '\\\\.\\(mov|mp4\\)$')",
+      "Bash(cd /Users/Victor/Documents/Projects/dataweb-site *)",
+      "Read(//Users/Victor/Documents/Projects/dataweb-site/src/components/**)"
     ]
   }
 }

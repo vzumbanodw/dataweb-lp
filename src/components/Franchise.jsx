@@ -1,8 +1,47 @@
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 export default function Franchise() {
+  const sectionRef = useRef(null)
+  const cardRef = useRef(null)
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
+    const ctx = gsap.context(() => {
+      const items = cardRef.current?.querySelectorAll(
+        '.section__tag, .franchise__title, .franchise__text, .btn'
+      )
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 78%',
+          once: true,
+        },
+      })
+
+      tl.fromTo(cardRef.current,
+        { autoAlpha: 0, y: 36, scale: 0.985 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.7, ease: 'power3.out', clearProps: 'transform' }
+      )
+        .fromTo(items,
+          { autoAlpha: 0, y: 22 },
+          { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.09, ease: 'power3.out', clearProps: 'transform' },
+          '-=0.4'
+        )
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="section franchise section--light">
+    <section className="section franchise section--light" id="parceiros" ref={sectionRef}>
       <div className="container">
-        <div className="franchise__card">
+        <div className="franchise__card" ref={cardRef}>
           <span className="section__tag">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path d="M6 1L10 4v4L6 11 2 8V4L6 1z" stroke="currentColor" strokeWidth="1.2" fill="none"/>

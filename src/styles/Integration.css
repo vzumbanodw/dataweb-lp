@@ -313,6 +313,14 @@
   padding: 20px;
   border-radius: 18px;
   box-shadow: none;
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease;
+}
+
+.itg__metric:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .itg__metric::before {
@@ -444,6 +452,17 @@
   gap: 18px;
   padding: 22px;
   border-radius: 20px;
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.itg__feature:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245, 197, 24, 0.22);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
 }
 
 .itg__feature-index {
@@ -451,6 +470,11 @@
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
+  transition: color 0.25s ease;
+}
+
+.itg__feature:hover .itg__feature-index {
+  color: rgba(245, 197, 24, 0.95);
 }
 
 .itg__feature p {

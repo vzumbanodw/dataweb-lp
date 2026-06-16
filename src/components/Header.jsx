@@ -3,16 +3,17 @@ import { gsap } from 'gsap'
 import { handleNavClick } from '../router'
 
 const navLinks = [
-  { label: 'Plataforma', href: '#plataforma' },
+  { label: 'Início',     href: '#hero'       },
   { label: 'Produtos',   href: '#produtos'   },
-  { label: 'CRM',        href: '#crm'        },
+  { label: 'Parceiros',  href: '#parceiros'  },
+  { label: 'Sobre nós',  href: '#about'      },
   { label: 'Contato',    href: '#contact'    },
 ]
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled,   setScrolled]   = useState(false)
-  const [activeLink, setActiveLink] = useState(null)
+  const [activeLink, setActiveLink] = useState('Início')
 
   const headerRef      = useRef(null)
   const logoRef        = useRef(null)
@@ -21,36 +22,52 @@ export default function Header() {
   const mobileNavRef   = useRef(null)
   const mobileLinksRef = useRef([])
 
-  /* ── Entrance animation ── */
+  /* ── Entrance animation — waits for the splash wipe on first load ── */
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-      tl.fromTo(headerRef.current,
-        { y: -80, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 }
-      )
-      .fromTo(logoRef.current,
-        { x: -20, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.5 },
-        '-=0.4'
-      )
-      .fromTo(
-        navRef.current?.querySelectorAll('.header__nav-link'),
-        { y: -12, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4, stagger: 0.07 },
-        '-=0.3'
-      )
-      .fromTo(ctaRef.current,
-        { scale: 0.8, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(2)' },
-        '-=0.2'
-      )
-    })
-    return () => ctx.revert()
+    let ctx
+
+    const play = () => {
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+        tl.fromTo(headerRef.current,
+          { y: -80, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7 }
+        )
+        .fromTo(logoRef.current,
+          { x: -20, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.5 },
+          '-=0.4'
+        )
+        .fromTo(
+          navRef.current?.querySelectorAll('.header__nav-link'),
+          { y: -12, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.4, stagger: 0.07 },
+          '-=0.3'
+        )
+        .fromTo(ctaRef.current,
+          { scale: 0.8, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(2)' },
+          '-=0.2'
+        )
+      })
+    }
+
+    if (document.querySelector('.splash')) {
+      window.addEventListener('dw:splash-done', play, { once: true })
+    } else {
+      play()
+    }
+
+    return () => {
+      window.removeEventListener('dw:splash-done', play)
+      ctx?.revert()
+    }
   }, [])
 
-  /* ── Scroll glass ── */
+  /* ── Scroll glass + active section detection ── */
   useEffect(() => {
     const onScroll = () => {
       const isScrolled = window.scrollY > 40
@@ -60,10 +77,22 @@ export default function Header() {
           backgroundColor:  isScrolled ? 'rgba(8,10,20,0.88)' : 'rgba(8,10,20,0)',
           backdropFilter:   isScrolled ? 'blur(20px)' : 'blur(0px)',
           borderBottomColor: isScrolled ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0)',
+          boxShadow: isScrolled ? '0 12px 32px -12px rgba(0,0,0,0.45)' : '0 0 0 rgba(0,0,0,0)',
           duration: 0.35,
           ease: 'power2.out',
         })
       }
+
+      const offset = window.innerHeight * 0.35
+      let current = 'Início'
+      for (const link of navLinks) {
+        const id = link.href.replace('#', '')
+        const section = document.getElementById(id)
+        if (section && section.getBoundingClientRect().top <= offset) {
+          current = link.label
+        }
+      }
+      setActiveLink(current)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -73,6 +102,12 @@ export default function Header() {
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
     if (!mobileNavRef.current) return
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(mobileNavRef.current, { display: mobileOpen ? 'flex' : 'none', opacity: 1, y: 0 })
+      if (mobileOpen) gsap.set(mobileLinksRef.current, { opacity: 1, x: 0 })
+      return () => { document.body.style.overflow = '' }
+    }
 
     if (mobileOpen) {
       gsap.set(mobileNavRef.current, { display: 'flex' })
@@ -93,8 +128,12 @@ export default function Header() {
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
+  const reduceMotion = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
   /* ── Nav link hover — magnetic lift + underline ── */
   const handleLinkEnter = (e) => {
+    if (reduceMotion()) return
     gsap.to(e.currentTarget, { y: -3, duration: 0.22, ease: 'power2.out' })
     gsap.to(e.currentTarget.querySelector('.header__nav-underline'), {
       scaleX: 1, duration: 0.25, ease: 'power2.out',
@@ -109,6 +148,7 @@ export default function Header() {
 
   /* ── CTA magnetic hover ── */
   const handleCtaMove = (e) => {
+    if (reduceMotion()) return
     const rect = ctaRef.current.getBoundingClientRect()
     const cx = rect.left + rect.width / 2
     const cy = rect.top  + rect.height / 2
@@ -122,6 +162,7 @@ export default function Header() {
 
   /* ── Logo bounce ── */
   const handleLogoEnter = () => {
+    if (reduceMotion()) return
     gsap.to(logoRef.current, { scale: 1.06, duration: 0.25, ease: 'back.out(2)' })
   }
   const handleLogoLeave = () => {
@@ -152,7 +193,6 @@ export default function Header() {
                 className={`header__nav-link ${activeLink === l.label ? 'header__nav-link--active' : ''}`}
                 onMouseEnter={handleLinkEnter}
                 onMouseLeave={handleLinkLeave}
-                onClick={() => setActiveLink(l.label)}
               >
                 {l.label}
                 <span className="header__nav-underline" />
@@ -168,10 +208,10 @@ export default function Header() {
               onMouseMove={handleCtaMove}
               onMouseLeave={handleCtaLeave}
             >
-              <span className="header__cta-shimmer" />
-              Agendar demonstração
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M3 7h8M8 4.5l2.5 2.5L8 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <span className="header__cta-dot" aria-hidden="true" />
+              <span className="header__cta-label">Demonstração gratuita</span>
+              <svg className="header__cta-arrow" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 7h8M8 4.5l2.5 2.5L8 9.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </a>
 
@@ -225,7 +265,8 @@ export default function Header() {
           className="btn btn--primary header__mobile-cta"
           onClick={() => setMobileOpen(false)}
         >
-          Agendar demonstração
+          <span className="header__cta-dot" aria-hidden="true" />
+          Demonstração gratuita
         </a>
       </nav>
     </>

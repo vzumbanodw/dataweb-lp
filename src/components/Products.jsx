@@ -156,6 +156,8 @@ export default function Products() {
   const cardRefs    = useRef([])
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
     const ctx = gsap.context(() => {
 
       /* Linha divisória cresce da esquerda */

@@ -36,7 +36,14 @@ export default function App() {
 
   return (
     <>
-      {showSplash && <SplashScreen onComplete={() => setSplashDone(true)} />}
+      {showSplash && (
+        <SplashScreen
+          onComplete={() => {
+            setSplashDone(true)
+            window.dispatchEvent(new Event('dw:splash-done'))
+          }}
+        />
+      )}
 
       <div
         className="app-content"

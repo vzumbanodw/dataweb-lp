@@ -1,6 +1,43 @@
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
 export default function Footer() {
+  const footerRef = useRef(null)
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
+    const ctx = gsap.context(() => {
+      const cols = footerRef.current?.querySelectorAll('.footer__inner > *')
+      const bottom = footerRef.current?.querySelector('.footer__bottom')
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 88%',
+          once: true,
+        },
+      })
+
+      tl.fromTo(cols,
+        { autoAlpha: 0, y: 24 },
+        { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.08, ease: 'power3.out', clearProps: 'transform' }
+      )
+        .fromTo(bottom,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.5, ease: 'power2.out' },
+          '-=0.25'
+        )
+    }, footerRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <footer className="footer" id="contact">
+    <footer className="footer" id="contact" ref={footerRef}>
       <div className="container">
         <div className="footer__inner">
 

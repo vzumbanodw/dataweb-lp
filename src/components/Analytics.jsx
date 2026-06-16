@@ -109,6 +109,20 @@ export default function Analytics() {
 
   /* ── ScrollTrigger entry ── */
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      /* No motion — content rests visible; pin the stat counters to their targets */
+      headerRef.current?.querySelectorAll('.ana__hstat').forEach((el) => {
+        const target = parseFloat(el.dataset.target ?? '0')
+        const num = el.querySelector('.ana__hstat-num')
+        if (num) {
+          num.textContent = Number.isInteger(target)
+            ? target.toLocaleString('pt-BR')
+            : target.toFixed(1)
+        }
+      })
+      return undefined
+    }
+
     const ctx = gsap.context(() => {
 
       /* ── Header: tag fade + title split + stats counter ── */
@@ -215,6 +229,8 @@ export default function Analytics() {
 
     setActiveCard(idx)
     setTimeout(() => { isAnimating.current = false }, 400)
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const cardEl = cardRefs.current[idx]
     if (cardEl) {

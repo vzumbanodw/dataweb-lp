@@ -922,6 +922,11 @@
   color: var(--tone);
   background: var(--tone-soft);
   border: 1px solid var(--tone-edge);
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ssn__step:hover .ssn__step-icon {
+  transform: scale(1.07) rotate(-3deg);
 }
 
 .ssn__step-title {
@@ -1029,6 +1034,11 @@
   color: var(--tone);
   background: var(--tone-soft);
   border: 1px solid var(--tone-edge);
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ssn__diff:hover .ssn__diff-icon {
+  transform: scale(1.07) rotate(-3deg);
 }
 
 .ssn__diff-eyebrow {

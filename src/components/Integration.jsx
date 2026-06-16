@@ -73,6 +73,8 @@ export default function Integration() {
   const featureRefs = useRef([])
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
     const ctx = gsap.context(() => {
       const words = headerRef.current?.querySelectorAll('.itg__word')
       const lead = headerRef.current?.querySelector('.itg__lead')
